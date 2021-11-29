@@ -1,14 +1,16 @@
 {
   "name": "typescript-common-library-starter",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "",
   "keywords": [],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist/bin/index.js",
+    "dist/bin/create.js",
     "dist/index.js",
-    "dist/index.d.ts"
+    "dist/index.d.ts",
+    "dist/templates/"
   ],
   "author": "mosby-zhou <zhoucong0725@foxmail.com>",
   "homepage": "https://github.com/mosby-zhou/typescript-common-library-starter",
@@ -24,7 +26,7 @@
     "typescript-common-library-starter": "./dist/bin/index.js"
   },
   "scripts": {
-    "postinstall": "husky install",
+    "poststart": "husky install",
     "commit": "gitcz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && prettier --write CHANGELOG.md",
     "lint": "eslint --ext .ts src/ test/",

@@ -34,17 +34,13 @@ export default [
 
       // Resolve source maps to the original source
       sourceMaps(),
-
-      copy({
-        targets: [{ src: 'templates', dest: 'dist' }],
-      }),
     ],
   },
   {
-    input: `src/bin/index.ts`,
+    input: `src/bin/create.ts`,
     output: [
       {
-        file: 'dist/bin/index.js',
+        file: 'dist/bin/create.js',
         format: 'cjs',
         exports: 'auto',
         sourcemap: false,
@@ -70,7 +66,10 @@ export default [
       sourceMaps(),
 
       copy({
-        targets: [{ src: 'templates', dest: 'dist' }],
+        targets: [
+          { src: 'templates', dest: 'dist' },
+          { src: 'src/bin/index.js', dest: 'dist/bin/' },
+        ],
       }),
     ],
   },
