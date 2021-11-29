@@ -1,0 +1,16 @@
+node_modules
+coverage
+.nyc_output
+.temp
+temp
+releases/*
+.DS_Store
+*.log
+.vscode/*
+!.vscode/launch.json
+.idea
+dist
+compiled
+.awcache
+.rpt2_cache
+docs

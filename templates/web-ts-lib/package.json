@@ -1,0 +1,211 @@
+{
+  "name": "<%= projectName %>",
+  "version": "0.0.1",
+  "description": "",
+  "homepage": "https://github.com/<%= userName %>/<%= projectName %>/",
+  "keywords": [],
+  "main": "dist/<%= projectName %>.umd.js",
+  "module": "dist/<%= projectName %>.es5.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/<%= projectName %>.umd.js",
+    "dist/<%= projectName %>.es5.js",
+    "dist/index.d.ts"
+  ],
+  "author": "<%= userName %> <<%= userEmail %>>",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "postinstall": "husky install",
+    "lint": "eslint --ext .ts src/ test/",
+    "prebuild": "rimraf dist",
+    "build": "npm run api && rollup -c rollup.config.js && typedoc --out docs --theme minimal src",
+    "start": "rollup -c rollup.config.js -w",
+    "test": "jest --coverage",
+    "check-release-version": "ts-node -P ./tsconfig.json ./tools/check-release-version",
+    "api": "tsc --module commonjs && api-extractor run",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "commit": "git-cz",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && prettier --write CHANGELOG.md"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": false,
+      "commonjs": true,
+      "es6": true,
+      "node": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint",
+      "prettier"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
+    ],
+    "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+      "ecmaVersion": 11,
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-plusplus": [
+        "error",
+        {
+          "allowForLoopAfterthoughts": true
+        }
+      ],
+      "no-console": "off",
+      "no-return-await": "off",
+      "object-shorthand": "off",
+      "arrow-body-style": "off",
+      "no-nested-ternary": "off",
+      "consistent-return": "off",
+      "no-param-reassign": "off",
+      "prefer-destructuring": "off",
+      "no-underscore-dangle": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "args": "none"
+        }
+      ],
+      "@typescript-eslint/no-inferrable-types": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "prettier/prettier": "error"
+    },
+    "ignorePatterns": []
+  },
+  "lint-staged": {
+    "{src,test}/**/*.ts": [
+      "eslint --fix"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/git-cz"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "babel": {
+    "env": {
+      "test": {
+        "presets": [
+          [
+            "power-assert"
+          ],
+          [
+            "@babel/preset-env"
+          ]
+        ]
+      }
+    }
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "globals": {
+      "NODE_ENV": "test",
+      "ts-jest": {
+        "babelConfig": true
+      }
+    },
+    "testEnvironment": "jsdom",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    },
+    "collectCoverageFrom": [
+      "src/lib/*.ts"
+    ]
+  },
+  "prettier": {
+    "printWidth": 150,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "always",
+    "jsxSingleQuote": true,
+    "endOfLine": "lf"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.13.15",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/runtime": "^7.13.10",
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
+    "@microsoft/api-extractor": "^7.13.4",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^18.0.0",
+    "@rollup/plugin-eslint": "^8.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.1",
+    "@rollup/plugin-replace": "^2.4.2",
+    "@types/jest": "^26.0.22",
+    "@types/lodash": "^4.14.168",
+    "@types/node": "^14.14.37",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "babel-preset-power-assert": "^3.0.0",
+    "colors": "^1.4.0",
+    "commitizen": "^4.2.3",
+    "core-js": "^3.10.1",
+    "coveralls": "^3.1.0",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "git-cz": "^4.8.0",
+    "husky": "^7.0.4",
+    "jest": "^26.6.3",
+    "jest-config": "^26.6.3",
+    "lint-staged": "^10.5.4",
+    "lodash": "^4.17.21",
+    "power-assert": "^1.6.1",
+    "prettier": "^2.2.1",
+    "prompt": "^1.1.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.45.1",
+    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-uglify": "^6.0.4",
+    "ts-jest": "^26.5.4",
+    "ts-node": "^9.1.1",
+    "typedoc": "^0.20.35",
+    "typescript": "^4.2.4"
+  }
+}
