@@ -19,10 +19,11 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@master
         with:
-          node-version: 12
+          node-version: 14
 
       - name: Check & Build
         run: |
+          npm i -g npm@latest
           npm ci
           npm run check-release-version
           npm run build
@@ -30,7 +31,7 @@ jobs:
       - name: Use npm
         uses: actions/setup-node@master
         with:
-          node-version: 12
+          node-version: 14
       - name: Publish npm
         run: |
           npm config set //registry.npmjs.org/:_authToken=${{ secrets.npm_token }}
@@ -41,7 +42,7 @@ jobs:
       - name: Use gpr
         uses: actions/setup-node@master
         with:
-          node-version: 12
+          node-version: 14
       - name: Publish gpr
         run: |
           name=${GITHUB_REPOSITORY%%/*}
